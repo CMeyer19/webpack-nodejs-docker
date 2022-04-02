@@ -1,14 +1,15 @@
-# pull official base image
-FROM node:alpine AS BUILD_IMAGE
+FROM node:alpine
+
 ENV NODE_ENV=production
 
-# set working directory
 WORKDIR /app
 
-# add app
-COPY ./build/index.js .
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY ./build/index.js ./build/
 
 EXPOSE 8001
 
-# start app
 CMD ["npm", "start"]
