@@ -1,30 +1,38 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import nodeExternals from 'webpack-node-externals';
 import path from 'path';
 import {Configuration} from 'webpack';
 
 import 'webpack-dev-server';
 
+const {NODE_ENV = 'production'} = process.env;
+
 const config: Configuration = {
     entry: './src/index.ts',
-    mode: 'production',
+    mode: NODE_ENV as "none" | "development" | "production",
+    target: 'node',
     devtool: 'inline-source-map',
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
+                test: /\.ts?$/,
+                use: 'ts-loader'
             },
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.ts', '.js'],
     },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin()
+    ],
+    externals: [
+        nodeExternals()
+    ]
 };
 
 export default config;
