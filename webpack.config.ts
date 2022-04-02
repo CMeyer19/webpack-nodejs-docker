@@ -1,5 +1,5 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import nodeExternals from 'webpack-node-externals';
+import WebpackShellPlugin from 'webpack-shell-plugin';
 import path from 'path';
 import {Configuration} from 'webpack';
 
@@ -11,7 +11,7 @@ const config: Configuration = {
     entry: './src/index.ts',
     mode: NODE_ENV as "none" | "development" | "production",
     target: 'node',
-    devtool: 'inline-source-map',
+    watch: NODE_ENV === 'development',
     module: {
         rules: [
             {
@@ -28,7 +28,9 @@ const config: Configuration = {
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-        new HtmlWebpackPlugin()
+        new WebpackShellPlugin({
+            onBuildEnd: ['npm run run:dev']
+        })
     ],
     externals: [
         nodeExternals()
