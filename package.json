@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "start": "nodemon build/index.js"
+    "start": "nodemon build/index.js 8001",
+    "build:docker": "docker build . -t tinder-backend",
+    "start:docker": "docker run -p 8001:8001 -e PORT='8001' --name tinder-backend tinder-backend"
   },
   "keywords": [],
   "author": "",
