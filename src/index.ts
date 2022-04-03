@@ -3,7 +3,6 @@ import PeopleRoutes from './routes/people';
 import Cors from "cors";
 
 const app = express();
-console.log(process.env.PORT);
 const PORT = Number(process.env.PORT) || 8001;
 
 // Middlewares
