@@ -1,21 +1,16 @@
 import express from "express";
-import {pool} from "../models/pool";
+import db from "../queries/user-queries";
 
 const PeopleRoutes = express.Router();
 
-PeopleRoutes.get('/', (req, res) => {
-    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-        if (error) {
-            throw error
-        }
-        res.status(200).json(results.rows)
-    })
-});
+PeopleRoutes.get('/', db.getUsers);
 
-PeopleRoutes.post('/', (req, res) => {
-    const dbPerson = req.body;
+PeopleRoutes.get('/users/:id', db.getUserById);
 
-    res.status(200).send();
-});
+PeopleRoutes.post('/users', db.createUser);
+
+PeopleRoutes.put('/users/:id', db.updateUser);
+
+PeopleRoutes.delete('/users/:id', db.deleteUser);
 
 export default PeopleRoutes;
