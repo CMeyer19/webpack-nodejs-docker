@@ -1,21 +1,22 @@
 FROM node:alpine as base
 
-ENV NODE_ENV=production
-
 WORKDIR /build
 
-COPY * ./
+COPY . .
 
-RUN npm ci --only=production --quiet
-CMD ["npm", "run", "build"]
+RUN npm ci
+RUN npm run build
 
 FROM node:alpine
 
+ENV NODE_ENV=production
+
 WORKDIR /app
 
-COPY --from=base ./build/node_modules ./node_modules
 COPY --from=base ./build/package*.json ./
-COPY --from=base ./build/index.js ./build/
+COPY --from=base ./build/build/index.js ./build/
+
+RUN npm ci --quiet
 
 EXPOSE 8001
 
