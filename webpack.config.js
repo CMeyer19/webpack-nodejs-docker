@@ -4,9 +4,7 @@ const WebpackShellPlugin = require('webpack-shell-plugin-next');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
-const {
-    NODE_ENV = 'production',
-} = process.env;
+const {NODE_ENV = 'production'} = process.env;
 
 module.exports = {
     entry: './src/index.ts',
@@ -23,9 +21,9 @@ module.exports = {
     },
     plugins: [
         new WebpackShellPlugin({
-            onBuildEnd: ['npm run start']
+            onBuildEnd: ['npm start']
         }),
-        new Dotenv(),
+        new Dotenv()
     ],
     module: {
         rules: [
