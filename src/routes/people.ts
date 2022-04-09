@@ -5,12 +5,12 @@ const PeopleRoutes = express.Router();
 
 PeopleRoutes.get('/', db.getUsers);
 
-PeopleRoutes.get('/users/:id', db.getUserById);
+PeopleRoutes.post('/', db.createUser);
 
-PeopleRoutes.post('/users', db.createUser);
+PeopleRoutes.get('/:id', db.getUserById);
 
-PeopleRoutes.put('/users/:id', db.updateUser);
+PeopleRoutes.put('/:id', db.updateUser);
 
-PeopleRoutes.delete('/users/:id', db.deleteUser);
+PeopleRoutes.delete('/:id', db.deleteUser);
 
 export default PeopleRoutes;
