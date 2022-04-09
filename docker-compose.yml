@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=api
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "tinder-backend"
+    networks:
+      - postgres
+    ports:
+      - "8001:8001"
+    environment:
+      NODE_ENV: production
+      PORT: 8001
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_NAME: api
+    depends_on:
+      - db
+networks:
+  postgres:
+    name: postgres

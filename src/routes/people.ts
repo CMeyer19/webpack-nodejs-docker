@@ -1,29 +1,16 @@
-// All user related routes
 import express from "express";
-import People from '../schemas/dbPeople'
+import db from "../queries/user-queries";
 
 const PeopleRoutes = express.Router();
 
-PeopleRoutes.get('/', (req, res) => {
-    People.find((err, data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).send(data);
-        }
-    })
-});
+PeopleRoutes.get('/', db.getUsers);
 
-PeopleRoutes.post('/', (req, res) => {
-    const dbPerson = req.body;
+PeopleRoutes.post('/', db.createUser);
 
-    People.create(dbPerson, (err: any, data: any) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(201).send(data);
-        }
-    });
-});
+PeopleRoutes.get('/:id', db.getUserById);
+
+PeopleRoutes.put('/:id', db.updateUser);
+
+PeopleRoutes.delete('/:id', db.deleteUser);
 
 export default PeopleRoutes;
