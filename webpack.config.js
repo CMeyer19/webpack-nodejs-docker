@@ -1,16 +1,10 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const WebpackShellPlugin = require('webpack-shell-plugin-next');
-const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
-
-const {NODE_ENV = 'production'} = process.env;
 
 module.exports = {
     entry: './src/index.ts',
-    mode: NODE_ENV,
+    mode: 'production',
     target: 'node',
-    watch: NODE_ENV === 'development',
     externals: [nodeExternals()],
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -19,12 +13,6 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.js'],
     },
-    plugins: [
-        new WebpackShellPlugin({
-            onBuildEnd: ['npm start']
-        }),
-        new Dotenv()
-    ],
     module: {
         rules: [
             {

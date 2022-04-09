@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "nodemon build/index.js 8003",
     "build": "webpack",
-    "start": "nodemon build/index.js",
-    "runQuery": "ts-node .\\src\\utils\\runQuery.ts",
-    "build:docker": "docker build . -t tinder-backend",
-    "start:docker": "docker run -p 8001:8001 --env-file ./env --name tinder-backend tinder-backend",
-    "compose": "docker-compose up"
+    "seed-db": "ts-node .\\src\\utils\\runQuery.ts",
+    "build:docker": "docker build . -t tinder-backend"
   },
   "keywords": [],
   "author": "",
