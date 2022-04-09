@@ -12,14 +12,17 @@ services:
     networks:
       - postgres
   api:
-    image: tinder-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: "tinder-backend"
     networks:
       - postgres
     ports:
-      - "8003:8003"
+      - "8001:8001"
     environment:
       NODE_ENV: production
+      PORT: 8001
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: postgres
